@@ -11,6 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+/*
+*Controller (프레젠테이션 계층, Web Layer)
+클라이언트의 요청(Request) → 비즈니스 처리 → 응답(Response)
+REST API라면 URL, HTTP 메서드 등 요청/응답 담당
+예) 파라미터 검증, DTO 변환, 응답 포맷 통일, 예외 핸들링 등
+비즈니스 로직/DB 접근/권한 검사 직접 구현 X (딱 “입구”만 담당)
+* */
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {

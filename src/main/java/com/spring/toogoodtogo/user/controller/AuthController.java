@@ -7,13 +7,14 @@ import com.spring.toogoodtogo.user.dto.LoginResponse;
 import com.spring.toogoodtogo.user.service.AuthService;
 import com.spring.toogoodtogo.user.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -26,23 +27,9 @@ public class AuthController {
 
     // 로그인 (JWT 발급)
     @PostMapping("/login")
-    public void login(@Valid @RequestBody LoginRequest req) {
+    public ApiResponse<?> login(@Valid @RequestBody LoginRequest req) {
+        LoginResponse response = authService.login(req);
+        return ApiResponse.success(HttpStatus.OK.value(), "로그인 성공", response);
+    }
 
-/*        User user = userService.authenticate(req.getEmail(), req.getPassword());
-        if (user == null) {
-            return ApiResponse.<LoginResponse>builder()
-                    .success(false).code(401)
-                    .message("이메일 또는 비밀번호가 올바르지 않습니다.")
-                    .timestamp(java.time.ZonedDateTime.now().toString())
-                    .build();
-        }
-        String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole().name());
-        LoginResponse loginRes = new LoginResponse(token, user.getId(), user.getEmail(), user.getRole().name());
-        return ApiResponse.<LoginResponse>builder()
-                .success(true).code(200)
-                .message("로그인 성공")
-                .data(loginRes)
-                .timestamp(java.time.ZonedDateTime.now().toString())
-                .build();
-    */}
 }

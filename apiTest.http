@@ -1,0 +1,15 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+POST localhost:8080/api/user/signup
+Content-Type: application/json
+
+{
+  "email": "test@naver.com",
+  "password": "test12345",
+  "name": "Test",
+  "phone": "010-5682-1224",
+  "role": "CUSTOMER"
+}
