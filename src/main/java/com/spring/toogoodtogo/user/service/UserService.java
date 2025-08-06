@@ -2,7 +2,6 @@ package com.spring.toogoodtogo.user.service;
 
 import com.spring.toogoodtogo.user.domain.User;
 import com.spring.toogoodtogo.user.domain.enums.UserRole;
-import com.spring.toogoodtogo.user.dto.LoginRequest;
 import com.spring.toogoodtogo.user.dto.SignUpRequest;
 import com.spring.toogoodtogo.user.dto.SignUpResponse;
 import com.spring.toogoodtogo.user.dto.UserInfoResponse;

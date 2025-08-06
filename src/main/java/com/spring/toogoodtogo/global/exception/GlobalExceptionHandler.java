@@ -1,6 +1,6 @@
-package com.spring.toogoodtogo.support.exceptionm;
+package com.spring.toogoodtogo.global.exception;
 
-import com.spring.toogoodtogo.support.ApiResponse;
+import com.spring.toogoodtogo.global.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.MethodArgumentNotValidException;

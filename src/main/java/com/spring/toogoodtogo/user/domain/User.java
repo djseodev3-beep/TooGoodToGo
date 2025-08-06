@@ -1,17 +1,13 @@
 package com.spring.toogoodtogo.user.domain;
 
 
-import com.spring.toogoodtogo.support.BaseEntity;
+import com.spring.toogoodtogo.global.BaseEntity;
 import com.spring.toogoodtogo.user.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor

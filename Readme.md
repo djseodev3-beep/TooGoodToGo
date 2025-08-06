@@ -182,6 +182,16 @@ User 1---N Store 1---N Product 1---N Reservation 1---1 Review
   "timestamp": "2025-07-23T18:50:00.111+09:00"
 }
 ```
+# 2025-08-06
+- 회원가입, 로그인 -> Spring Security 기본기 + JWT
+  - @AuthenticationPrincipal, SecurityContextHolder 이해
+  - Role 기반 인가(hasRole, @PreAuthorize)
+  - JWT 발급/검증/필터 구현
+  - 인증 실패 시 예외 처리
+- 학습 주제
+  - UsernamePasswordAuthenticationFilter
+  - JwtAuthenticationFilter, JwtProvider, SecurityConfig
+
 
 # 추가 개발/확장 참고
 - JWT 인증, 역할별 인가(Spring Security)

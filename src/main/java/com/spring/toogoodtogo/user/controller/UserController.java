@@ -1,7 +1,7 @@
 package com.spring.toogoodtogo.user.controller;
 
 import com.spring.toogoodtogo.confing.CustomUserDetails;
-import com.spring.toogoodtogo.support.ApiResponse;
+import com.spring.toogoodtogo.global.ApiResponse;
 import com.spring.toogoodtogo.user.dto.SignUpRequest;
 import com.spring.toogoodtogo.user.dto.SignUpResponse;
 import com.spring.toogoodtogo.user.dto.UserInfoResponse;

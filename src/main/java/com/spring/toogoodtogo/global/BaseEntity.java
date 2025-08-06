@@ -1,7 +1,6 @@
-package com.spring.toogoodtogo.support;
+package com.spring.toogoodtogo.global;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

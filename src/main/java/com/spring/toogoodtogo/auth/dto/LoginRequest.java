@@ -1,4 +1,4 @@
-package com.spring.toogoodtogo.user.dto;
+package com.spring.toogoodtogo.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

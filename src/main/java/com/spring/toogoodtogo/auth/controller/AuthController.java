@@ -1,11 +1,9 @@
-package com.spring.toogoodtogo.user.controller;
+package com.spring.toogoodtogo.auth.controller;
 
-import com.spring.toogoodtogo.support.ApiResponse;
-import com.spring.toogoodtogo.user.domain.User;
-import com.spring.toogoodtogo.user.dto.LoginRequest;
-import com.spring.toogoodtogo.user.dto.LoginResponse;
-import com.spring.toogoodtogo.user.service.AuthService;
-import com.spring.toogoodtogo.user.service.UserService;
+import com.spring.toogoodtogo.auth.service.AuthService;
+import com.spring.toogoodtogo.auth.dto.LoginRequest;
+import com.spring.toogoodtogo.auth.dto.LoginResponse;
+import com.spring.toogoodtogo.global.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

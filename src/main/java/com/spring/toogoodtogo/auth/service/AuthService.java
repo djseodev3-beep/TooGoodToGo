@@ -1,10 +1,11 @@
-package com.spring.toogoodtogo.user.service;
+package com.spring.toogoodtogo.auth.service;
 
+import com.spring.toogoodtogo.auth.dto.LoginRequest;
+import com.spring.toogoodtogo.auth.dto.LoginResponse;
 import com.spring.toogoodtogo.confing.CustomUserDetails;
 import com.spring.toogoodtogo.confing.JwtUtil;
-import com.spring.toogoodtogo.user.dto.LoginRequest;
-import com.spring.toogoodtogo.user.dto.LoginResponse;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,10 +35,15 @@ public class AuthService {
         if (!passwordEncoder.matches(request.password(), userDetails.getPassword())) {
             throw new IllegalArgumentException("Invalid username or password");
         }
-        //JWT 토큰 생성 필요.
-        String token = new JwtUtil().generateToken(userDetails);
-        return new LoginResponse(token,userDetails.getUserId(),userDetails.getUsername(),userDetails.getAuthorities().stream().findFirst().map(GrantedAuthority::getAuthority).orElse(null));
 
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
+
+        //JWT 토큰 생성 필요.
+        String token = jwtUtil.generateToken((CustomUserDetails) authentication.getPrincipal());
+        return new LoginResponse(token,userDetails.getUserId(),
+                userDetails.getUsername(),
+                userDetails.getAuthorities().stream().findFirst().map(GrantedAuthority::getAuthority)
+                        .orElse(null));
     }
 
 }

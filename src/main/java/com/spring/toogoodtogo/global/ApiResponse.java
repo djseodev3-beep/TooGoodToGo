@@ -1,4 +1,4 @@
-package com.spring.toogoodtogo.support;
+package com.spring.toogoodtogo.global;
 
 
 import lombok.Builder;
