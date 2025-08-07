@@ -31,6 +31,7 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final PasswordEncoderConfig passwordEncoder;
 
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
 

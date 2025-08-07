@@ -16,14 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthService {
 
-    private final UserDetailsService userDetailsService;
-    private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
 
-    public AuthService(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
-        this.userDetailsService = userDetailsService;
-        this.passwordEncoder = passwordEncoder;
+    public AuthService(JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
     }
