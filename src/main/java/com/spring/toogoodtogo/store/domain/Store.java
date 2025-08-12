@@ -3,18 +3,24 @@ package com.spring.toogoodtogo.store.domain;
 import com.spring.toogoodtogo.global.BaseAuditableEntity;
 import com.spring.toogoodtogo.user.domain.User;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.Date;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "stores")
+@SuperBuilder
+@Table(name = "stores", uniqueConstraints = {
+        @UniqueConstraint(name = "uk_store_owner_name",columnNames = {"owner_id","name"}) // 한 오너가 같은 이름의매장을 중복 생성 못하도록
+})
 @AttributeOverride(name = "id", column = @Column(name = "store_id")) // PK 컬럼명을 Store_id로
 public class Store extends BaseAuditableEntity {
 
@@ -36,9 +42,9 @@ public class Store extends BaseAuditableEntity {
     private String description;
 
     @Column(nullable = false)
-    private Date openTime;
+    private LocalTime openTime;
     @Column(nullable = false)
-    private Date closeTime;
+    private LocalTime closeTime;
 
     /*@Column(nullable = false)
     private boolean isApproved;*/

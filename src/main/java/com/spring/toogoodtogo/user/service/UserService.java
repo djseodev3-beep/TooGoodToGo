@@ -46,7 +46,8 @@ public class UserService {
                 encodePwd,
                 request.name(),
                 request.phone(),
-                role
+                role,
+                true
         );
         userRepository.save(user);
         return new SignUpResponse(user.getId(), user.getEmail(),user.getName(), user.getRole().name());

@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: ToogoodToGo
+  datasource:
+    url : jdbc:postgresql://localhost:5432/appdb
+    username: dev
+    password: devpw12345
+  #    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:test
+#    username: sa
+#    password: test1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql:  true
+  h2:
+    console:
+      enabled: true

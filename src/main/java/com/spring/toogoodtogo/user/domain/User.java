@@ -32,5 +32,11 @@ public class User extends BaseIdEntity {
     @Column(nullable = false)
     private UserRole role;
 
+    @Column(nullable = false)
+    private boolean enabled;
+
+    public boolean isStoreOwner(){
+        return role == UserRole.STORE_OWNER;
+    }
 
 }
