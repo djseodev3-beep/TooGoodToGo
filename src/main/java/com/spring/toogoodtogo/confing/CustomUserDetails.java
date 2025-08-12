@@ -1,7 +1,6 @@
 package com.spring.toogoodtogo.confing;
 
 import com.spring.toogoodtogo.user.domain.User;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

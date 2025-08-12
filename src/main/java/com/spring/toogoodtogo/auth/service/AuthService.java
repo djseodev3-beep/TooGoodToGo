@@ -36,6 +36,10 @@ public class AuthService {
 //            throw new IllegalArgumentException("Invalid username or password");
 //        }
 
+        //사용자가 직접 로그인 시, 인증 요청을 만들기 위함.
+        //Principal: email, Credentials: password, Authorities: null
+        //이 토큰이 AuthenticationManager로 전달되며
+        //내부적으로 UserDetailsService + PasswordEncoder가 호출되어 인증됨
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(),request.password()));
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();

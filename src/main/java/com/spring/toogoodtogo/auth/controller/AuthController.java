@@ -21,8 +21,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-
-
     // 로그인 (JWT 발급)
     @PostMapping("/login")
     public ApiResponse<?> login(@Valid @RequestBody LoginRequest req) {

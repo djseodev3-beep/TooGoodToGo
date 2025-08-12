@@ -1,5 +1,7 @@
 package com.spring.toogoodtogo.store.domain;
 
+import com.spring.toogoodtogo.global.BaseAuditableEntity;
+import com.spring.toogoodtogo.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,16 +14,14 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Store {
+@Table(name = "stores")
+@AttributeOverride(name = "id", column = @Column(name = "store_id")) // PK 컬럼명을 Store_id로
+public class Store extends BaseAuditableEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id")
-    private Long id;
-
-    @Column
-    @JoinColumn(name = "user_id")
-    private Long ownerId;
+    // N:1 경우 N인경우에 무조건 외래키를 가지며, @MayToOne 추가
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "owner_id",nullable = false) // FK 컬럼명 : owner_id, 참조 :users.id
+    private User ownerId;
 
     @Column(nullable = false, length = 20)
     private String name;

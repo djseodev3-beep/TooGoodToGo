@@ -1,23 +1,22 @@
 package com.spring.toogoodtogo.user.domain;
 
 
-import com.spring.toogoodtogo.global.BaseEntity;
+import com.spring.toogoodtogo.global.BaseIdEntity;
 import com.spring.toogoodtogo.user.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
-@NoArgsConstructor
-@SuperBuilder
 @Getter
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+@NoArgsConstructor
+@AttributeOverride(name = "id", column = @Column(name = "user_id"))
+public class User extends BaseIdEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)

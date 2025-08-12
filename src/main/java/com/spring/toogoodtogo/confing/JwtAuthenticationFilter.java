@@ -30,6 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetail = userDetailsService.loadUserByUsername(email); //사용자정보를 DB에서 조회
 
             //인증객체 생성.
+            // JWT 토큰에서 사용자 정보를 추출해서, 인증이 완료된 상태를 SecurityContext에 주입 하기 위함.
             //UsernamePasswordAuthenticationToken 왜 사용하는가?
             // spring Security 내부에서 사용자를 인증된 상태로 처리하기 위한 인증 객체.
             // JWT 필터에서 인증 완료 처리할 떄 이미 유효한 사용자 정보를 갖고 있기 때문에 패스워드는 null, 인증 완료된 객체를 만들어 SecurityContext에 저장.
