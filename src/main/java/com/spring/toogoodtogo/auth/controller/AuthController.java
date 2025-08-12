@@ -6,6 +6,7 @@ import com.spring.toogoodtogo.auth.dto.LoginResponse;
 import com.spring.toogoodtogo.global.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,9 @@ public class AuthController {
 
     // 로그인 (JWT 발급)
     @PostMapping("/login")
-    public ApiResponse<?> login(@Valid @RequestBody LoginRequest req) {
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@Valid @RequestBody LoginRequest req) {
         LoginResponse response = authService.login(req);
-        return ApiResponse.success(HttpStatus.OK.value(), "로그인 성공", response);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "로그인 성공", response));
     }
 
 }

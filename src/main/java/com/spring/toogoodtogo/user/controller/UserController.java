@@ -8,8 +8,10 @@ import com.spring.toogoodtogo.user.dto.UserInfoResponse;
 import com.spring.toogoodtogo.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
 
 /*
 *Controller (프레젠테이션 계층, Web Layer)
@@ -20,7 +22,7 @@ REST API라면 URL, HTTP 메서드 등 요청/응답 담당
 * */
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -30,16 +32,16 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ApiResponse<?> signup(@Valid @RequestBody SignUpRequest request){
+    public ResponseEntity<ApiResponse<?>> signup(@Valid @RequestBody SignUpRequest request){
         SignUpResponse response = userService.singUp(request);
-        return ApiResponse.success(HttpStatus.CREATED.value(), "회원가입 성공", response);
+        return ResponseEntity.status(HttpStatus.CREATED.value()).body(ApiResponse.success(HttpStatus.CREATED.value(), "회원가입 성공", response));
     }
 
     // JWT에서 userId 추출 후 서비스로 전달 (Spring Security + JwtFilter 필요)
     @GetMapping("/me")
-    public ApiResponse<UserInfoResponse> getMyInfo(@AuthenticationPrincipal CustomUserDetails userDetails) {
+    public ResponseEntity<ApiResponse<UserInfoResponse>> getMyInfo(@AuthenticationPrincipal CustomUserDetails userDetails) {
         // CustomUserDetails는 Spring Security UserDetails 구현체
         UserInfoResponse info = userService.getUserInfo(userDetails.getUserId());
-        return ApiResponse.success(HttpStatus.OK.value(), "내 정보 조회 성공", info);
+        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "내 정보 조회 성공", info));
     }
 }
