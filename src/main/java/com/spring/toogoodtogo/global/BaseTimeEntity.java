@@ -23,7 +23,7 @@ public abstract class BaseTimeEntity extends BaseIdEntity {
     // Hibernate에서는 엔티티 객체에 대해 Insert,Update 등의 쿼리가 발생할 때 현재 시간을 자동으로 저장 해주는 어노테이션
     // CreationTimeStamp는 Insert 쿼리가 발생할 때, 현재 시간을 값으로 채워서 쿼리를 생성. @InsertTimeStamp 어노테이션을 사용하면 데이터가 생성된 시점에 대한 관리하는 수고를 덜 수 있다.
     @CreatedDate
-    @Column(name = "created_by", updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
