@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -41,8 +42,9 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable) // JWT는 csrf에 대한 공격에 의미 없으니 비활성화
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //Session 저장 X(JWT 인증 방식은 Stateless)
-                .authorizeHttpRequests(authorizeRequests -> authorizeRequests //API 접근 권한 정의
+                .authorizeHttpRequests(auth -> auth//API 접근 권한 정의
                         .requestMatchers("/api/auth/**","/api/users/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/stores").hasRole("STORE_OWNER")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception.authenticationEntryPoint((request, response, authException) -> {

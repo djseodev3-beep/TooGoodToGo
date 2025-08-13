@@ -25,7 +25,7 @@ public class StoreService {
         User owner = userRepository.findById(id).orElseThrow(()-> new UsernameNotFoundException("User not found"));
         assertOwnerActive(owner);
 
-        if(storeRepository.existsByOwnerIdAndName(owner.getId(), request.getName())) {
+        if(storeRepository.existsByOwnerIdAndName(owner,request.getName())) {
             throw new IllegalArgumentException("Store already exists");
         }
 

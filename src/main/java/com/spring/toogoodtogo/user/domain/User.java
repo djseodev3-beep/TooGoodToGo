@@ -7,11 +7,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
 @Getter
 @Entity
 @Table(name = "users")
+@SuperBuilder
 @NoArgsConstructor
 @AttributeOverride(name = "id", column = @Column(name = "user_id"))
 public class User extends BaseIdEntity {
