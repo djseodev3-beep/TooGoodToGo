@@ -1,5 +1,7 @@
 package com.spring.toogoodtogo.confing;
 
+import com.spring.toogoodtogo.exception.AuthApiErrorCode;
+import com.spring.toogoodtogo.global.exception.ApiException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -16,6 +18,9 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
+
+    private static final String AUTH_HEADER = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
 
     //private final String SECRET_KEY = System.getenv("SECRET_KEY");
     private final String SECRET_KEY = "MySuperSecretKeyForJwtMySuperSecretKeyForJwt"; //최소 32자 이상
@@ -49,12 +54,12 @@ public class JwtUtil {
 
     //2. HTTP 요청에서 토큰 추출
     public String extractToken(HttpServletRequest request) {
-        String bearer = request.getHeader("Authorization");
+        String header = request.getHeader(AUTH_HEADER);
 
-        if(StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
-            return bearer.substring(7);
+        if(header == null || !header.startsWith(BEARER_PREFIX)){
+            return null;
         }
-        return null;
+        return header.substring(BEARER_PREFIX.length());
     }
     //3. Claims 추출
     public Claims parseToken(String token){
