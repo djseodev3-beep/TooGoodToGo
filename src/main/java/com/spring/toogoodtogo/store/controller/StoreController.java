@@ -5,7 +5,11 @@ import com.spring.toogoodtogo.store.dto.CreateStoreRequest;
 import com.spring.toogoodtogo.store.dto.StoreResponse;
 import com.spring.toogoodtogo.store.service.StoreService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,11 +41,29 @@ public class StoreController {
     }
 
     /*
-    * GET /api/stores (내 매장 목록 조회)
-    * */
+     * GET /api/stores (전체 매장 목록 조회)
+     * */
     @GetMapping
+    public ResponseEntity<ApiResponse<Page<StoreResponse>>> listStores(@PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                                                                       @RequestParam(required = false) String q) {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "전체 매장 정보", storeService.getStores(pageable, q)));
+    }
+
+    /*
+    * GET /api/stores (내 전체 매장 목록 조회)
+    * */
+    @GetMapping("/mine")
     @PreAuthorize("hasRole('STORE_OWNER')")
-    public ResponseEntity<ApiResponse<?>> myStores(@AuthenticationPrincipal(expression = "userId") Long userId, Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "사장님 매장 등록 리스트", storeService.findMyStores(userId, pageable)));
+    public ResponseEntity<ApiResponse<Page<StoreResponse>>> myStores(@AuthenticationPrincipal(expression = "userId") Long userId,
+                                                   @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "사장님 매장 등록 리스트", storeService.getStoresByOwnerId(userId, pageable)));
+    }
+    /*
+     * GET /api/stores (내 매장 상세 조회)
+     * */
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('STORE_OWNER')")
+    public ResponseEntity<ApiResponse<StoreResponse>> getStore(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "사장님 상세 매장 정보", storeService.getStoresByStoreId(id)));
     }
 }

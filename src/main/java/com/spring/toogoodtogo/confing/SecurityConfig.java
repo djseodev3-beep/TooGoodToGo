@@ -66,6 +66,7 @@ public class SecurityConfig {
                                 "/api/auth/**", //로그인
                                 "/api/users/**" //회원가입
                         ).permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/stores").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/stores").hasRole("STORE_OWNER")
                         .anyRequest().authenticated()
                 )

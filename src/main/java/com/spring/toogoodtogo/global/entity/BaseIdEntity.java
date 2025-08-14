@@ -1,13 +1,10 @@
-package com.spring.toogoodtogo.global;
+package com.spring.toogoodtogo.global.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.time.LocalDateTime;
 
 @Getter
 @SuperBuilder // 상속 받은 필드를 빌더에서 사용하지 못하는 등의 제한이 있었지만 생성자에서 상속받은 필드도 빌더에서 사용할 수 있다.

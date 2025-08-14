@@ -1,6 +1,6 @@
 package com.spring.toogoodtogo.store.domain;
 
-import com.spring.toogoodtogo.global.BaseAuditableEntity;
+import com.spring.toogoodtogo.global.entity.BaseAuditableEntity;
 import com.spring.toogoodtogo.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -11,7 +11,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
