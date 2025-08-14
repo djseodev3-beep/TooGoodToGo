@@ -1,20 +1,31 @@
+#server:
+#  port: 80 # 내장 톰캣 포트번호
+
 spring:
-  application:
-    name: ToogoodToGo
+  logging:
+    level:
+      org.springframework.security: DEBUG
+  # H2 Database 설정
   datasource:
-    url : jdbc:postgresql://localhost:5432/appdb
-    username: dev
-    password: devpw12345
-  #    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:test
-#    username: sa
-#    password: test1234
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql:  true
+    driver-class-name: org.h2.Driver
+#    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
+    url: jdbc:h2:file:./testdb;MODE=PostgreSQL;AUTO_SERVER=TRUE; # H2 DB 연결 주소 (Embedded Mode)
+    username: username        # H2 DB 접속 ID (사용자 지정)
+    password: password        # H2 DB 접속 PW (사용자 지정)
+
+  # H2 Console 설정
   h2:
-    console:
-      enabled: true
+    console: # H2 DB를 웹에서 관리할 수 있는 기능
+      enabled: true           # H2 Console 사용 여부
+      path: /h2-console       # H2 Console 접속 주소
+
+  # JPA 설정
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true      # 쿼리 로그 포맷 (정렬)
+        show_sql: true        # 쿼리 로그 출력
