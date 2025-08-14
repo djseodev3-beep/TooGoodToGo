@@ -1,5 +1,7 @@
 package com.spring.toogoodtogo.confing;
 
+import com.spring.toogoodtogo.exception.AuthApiErrorCode;
+import com.spring.toogoodtogo.global.exception.ApiException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
