@@ -1,7 +1,5 @@
 package com.spring.toogoodtogo.confing;
 
-import com.spring.toogoodtogo.exception.AuthApiErrorCode;
-import com.spring.toogoodtogo.global.exception.ApiException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -9,7 +7,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;

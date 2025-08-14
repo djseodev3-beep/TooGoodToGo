@@ -1,4 +1,4 @@
-package com.spring.toogoodtogo.exception;
+package com.spring.toogoodtogo.auth.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.toogoodtogo.global.exception.CustomErrorResponse;

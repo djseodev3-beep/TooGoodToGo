@@ -1,5 +1,8 @@
 package com.spring.toogoodtogo.store.service;
 
+import com.spring.toogoodtogo.global.exception.ApiErrorCode;
+import com.spring.toogoodtogo.global.exception.ApiException;
+import com.spring.toogoodtogo.global.exception.GlobalErrorCode;
 import com.spring.toogoodtogo.store.domain.Store;
 import com.spring.toogoodtogo.store.dto.CreateStoreRequest;
 import com.spring.toogoodtogo.store.dto.StoreResponse;
@@ -8,6 +11,7 @@ import com.spring.toogoodtogo.user.domain.User;
 import com.spring.toogoodtogo.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -45,9 +49,21 @@ public class StoreService {
         return StoreResponse.from(saved);
     }
 
-    public Page<StoreResponse> findMyStores(Long ownerId, Pageable pageable) {
+    public Page<StoreResponse> getStores(Pageable pageable, String q) {
+        Page<Store> list = (q == null || q.isBlank())
+                ? storeRepository.findAll(pageable)
+                : storeRepository.findByNameContainingIgnoreCaseOrAddressContainingIgnoreCase(q,pageable);
+        return list.map(StoreResponse::from);
+    }
+
+    public Page<StoreResponse> getStoresByOwnerId(Long ownerId, Pageable pageable) {
         return storeRepository.findByOwnerId(ownerId, pageable).map(StoreResponse::from);
     }
+
+    public StoreResponse getStoresByStoreId(Long storeId) {
+        return StoreResponse.from(storeRepository.findById(storeId).orElseThrow(()-> new ApiException(GlobalErrorCode.NOT_FOUND_STORE)));
+    }
+
 
 
     private void assertOwnerActive(User owner){

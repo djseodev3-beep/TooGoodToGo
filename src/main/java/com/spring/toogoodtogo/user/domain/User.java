@@ -1,7 +1,7 @@
 package com.spring.toogoodtogo.user.domain;
 
 
-import com.spring.toogoodtogo.global.BaseIdEntity;
+import com.spring.toogoodtogo.global.entity.BaseIdEntity;
 import com.spring.toogoodtogo.user.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

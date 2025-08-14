@@ -47,7 +47,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt_token}}
 
 {
-  "name": "홍길동의 빵집2",
+  "name": "홍길동의 빵집4",
   "address": "서울특별시 강남구 테헤란로 123",
   "phone": "02-123-4567",
   "description": "남은 빵을 특가 판매하는 매장입니다.",
