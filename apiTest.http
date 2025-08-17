@@ -7,11 +7,11 @@ POST localhost:8080/api/users/signup
 Content-Type: application/json
 
 {
-  "email": "test1@naver.com",
+  "email": "test2@naver.com",
   "password": "test12345",
   "name": "Test",
   "phone": "01056821224",
-  "role": "STORE_OWNER"
+  "role": "CUSTOMER"
 }
 
 ###
@@ -37,6 +37,20 @@ Content-Type: application/json
     client.global.set("jwt_token", response.body.data.token)
 %}
 
+### 1. 로그인 요청2 Customer(JWT 발급)
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test2@naver.com",
+  "password": "test12345"
+}
+
+> {%
+    client.global.set("jwt_token", response.body.data.token)
+%}
+
+
 ### 토큰 점검
 GET http://localhost:8080/api/users/me
 Authorization: Bearer {{jwt_token}}
@@ -47,7 +61,7 @@ Content-Type: application/json
 Authorization: Bearer {{jwt_token}}
 
 {
-  "name": "홍길동의 빵집2",
+  "name": "홍길동의 빵집3",
   "address": "서울특별시 강남구 테헤란로 123",
   "phone": "02-123-4567",
   "description": "남은 빵을 특가 판매하는 매장입니다.",
@@ -56,3 +70,16 @@ Authorization: Bearer {{jwt_token}}
   "latitude": 37.12345,
   "longitude": 127.12345
 }
+
+### 3. 매장 전체 조회 (인가 필요 없음.)
+GET localhost:8080/api/stores
+
+### 4. 내가 등록한 매장 조회(사장님만)
+GET localhost:8080/api/stores/mine
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}
+
+### 5. 상세 매장 조회.
+GET localhost:8080/api/stores/5
+Content-Type: application/json
+Authorization: Bearer {{jwt_token}}

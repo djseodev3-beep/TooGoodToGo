@@ -8,12 +8,13 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
-    Page<Store> findByOwnerId (Long id, Pageable pageable);
+    Page<Store> findByOwnerId (User ownerId, Pageable pageable);
     boolean existsByOwnerIdAndName (User user, String name);
     Page<Store> findByNameContainingIgnoreCaseOrAddressContainingIgnoreCase(
-            String name, Pageable pageable);
-
+            String name, String address,Pageable pageable);
+    Optional<Store> findByStoreIdAndOwnerId (Long storeId, User owner);
 }

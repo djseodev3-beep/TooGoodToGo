@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .securityMatcher("/h2-console/**")
                 .csrf(AbstractHttpConfigurer::disable) // 혹은 .ignoringRequestMatchers("/h2-console/**")
                 .headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)) // H2 콘솔이 iframe 사용
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console/**").permitAll())
                 .build();
     }
 
