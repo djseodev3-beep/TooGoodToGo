@@ -1,11 +1,11 @@
 package com.spring.toogoodtogo.store.controller;
 
+import com.spring.toogoodtogo.confing.CustomUserDetails;
 import com.spring.toogoodtogo.global.ApiResponse;
 import com.spring.toogoodtogo.store.dto.CreateStoreRequest;
 import com.spring.toogoodtogo.store.dto.StoreResponse;
 import com.spring.toogoodtogo.store.service.StoreService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -54,16 +54,15 @@ public class StoreController {
     * */
     @GetMapping("/mine")
     @PreAuthorize("hasRole('STORE_OWNER')")
-    public ResponseEntity<ApiResponse<Page<StoreResponse>>> myStores(@AuthenticationPrincipal(expression = "userId") Long userId,
-                                                   @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "사장님 매장 등록 리스트", storeService.getStoresByOwnerId(userId, pageable)));
+    public ResponseEntity<ApiResponse<Page<StoreResponse>>> myStores(@AuthenticationPrincipal CustomUserDetails principal,
+                                                                     @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "사장님 매장 등록 리스트", storeService.getStoresByOwnerId(principal, pageable)));
     }
     /*
-     * GET /api/stores (내 매장 상세 조회)
+     * GET /api/stores (매장 상세 조회)
      * */
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('STORE_OWNER')")
-    public ResponseEntity<ApiResponse<StoreResponse>> getStore(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "사장님 상세 매장 정보", storeService.getStoresByStoreId(id)));
+    public ResponseEntity<ApiResponse<StoreResponse>> getStoreDetail(@AuthenticationPrincipal CustomUserDetails principal,@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK.value()).body(ApiResponse.success(HttpStatus.OK.value(), "일반 사용자 상세 매장 정보", storeService.getStoresByStoreId(principal,id)));
     }
 }

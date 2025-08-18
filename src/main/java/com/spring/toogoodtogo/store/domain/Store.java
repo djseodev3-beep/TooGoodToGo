@@ -20,7 +20,7 @@ import java.time.LocalTime;
 @Table(name = "stores", uniqueConstraints = {
         @UniqueConstraint(name = "uk_store_owner_name",columnNames = {"owner_id","name"}) // 한 오너가 같은 이름의매장을 중복 생성 못하도록
 })
-@AttributeOverride(name = "id", column = @Column(name = "store_id")) // PK 컬럼명을 Store_id로
+@AttributeOverride(name = "id", column = @Column(name = "store_id")) // PK 컬럼명을 Store_id
 public class Store extends BaseAuditableEntity {
 
     // N:1 경우 N인경우에 무조건 외래키를 가지며, @MayToOne 추가
